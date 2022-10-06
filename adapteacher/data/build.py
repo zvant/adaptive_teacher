@@ -147,6 +147,7 @@ def build_detection_test_loader(cfg, dataset_name, mapper=None):
 # uesed by unbiased teacher trainer
 def build_detection_semisup_train_loader_two_crops(cfg, mapper=None):
     if cfg.DATASETS.CROSS_DATASET:  # cross-dataset (e.g., coco-additional)
+        print("labeled training dataset: %s" % " ".join(cfg.DATASETS.TRAIN_LABEL))
         label_dicts = get_detection_dataset_dicts(
             cfg.DATASETS.TRAIN_LABEL,
             filter_empty=cfg.DATALOADER.FILTER_EMPTY_ANNOTATIONS,
@@ -157,6 +158,7 @@ def build_detection_semisup_train_loader_two_crops(cfg, mapper=None):
             if cfg.MODEL.LOAD_PROPOSALS
             else None,
         )
+        print("unlabeled training dataset: %s" % " ".join(cfg.DATASETS.TRAIN_UNLABEL))
         unlabel_dicts = get_detection_dataset_dicts(
             cfg.DATASETS.TRAIN_UNLABEL,
             filter_empty=False,

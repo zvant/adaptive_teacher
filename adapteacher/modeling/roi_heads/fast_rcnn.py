@@ -5,7 +5,7 @@ from torch.nn import functional as F
 
 from detectron2.modeling.roi_heads.fast_rcnn import (
     FastRCNNOutputLayers,
-    FastRCNNOutputs,
+    #FastRCNNOutputs,
 )
 
 # focal loss
@@ -34,7 +34,7 @@ class FastRCNNFocaltLossOutputLayers(FastRCNNOutputLayers):
 
         return losses
 
-
+'''
 class FastRCNNFocalLoss(FastRCNNOutputs):
     """
     A class that stores information about outputs of a Fast R-CNN head.
@@ -79,7 +79,7 @@ class FastRCNNFocalLoss(FastRCNNOutputs):
             total_loss = total_loss / self.gt_classes.shape[0]
 
             return total_loss
-
+'''
 
 class FocalLoss(nn.Module):
     def __init__(
