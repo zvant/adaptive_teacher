@@ -119,8 +119,8 @@ def main(args):
     cfg.MODEL.WEIGHTS = ckpt_path
     cfg.DATASETS.TRAIN_LABEL = ('mscoco2017_train_remap',)
     cfg.DATASETS.TRAIN_UNLABEL = (dst_unlabel,)
-    # cfg.DATASETS.TEST = ('mscoco2017_valid_remap', dst_manual)
-    cfg.DATASETS.TEST = (dst_manual,)
+    # cfg.DATASETS.TEST = (dst_manual,) # debug
+    cfg.DATASETS.TEST = ('mscoco2017_valid_remap', dst_manual)
 
     # iters, eval_interval = 100, 51 # debug
     iters, eval_interval = 20000, 4010
