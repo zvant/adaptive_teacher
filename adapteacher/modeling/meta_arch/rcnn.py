@@ -212,9 +212,11 @@ class DAobjTwoStagePseudoLabGeneralizedRCNN(GeneralizedRCNN):
             gt_instances = None
 
         features = self.backbone(images.tensor)
+        #print(images); print(features); print(gt_instances)
 
         # TODO: remove the usage of if else here. This needs to be re-organized
         if branch.startswith("supervised"):
+            #print("########## branch supervised")
             features_s = grad_reverse(features[self.dis_type])
             D_img_out_s = self.D_img(features_s)
             loss_D_img_s = F.binary_cross_entropy_with_logits(D_img_out_s, torch.FloatTensor(D_img_out_s.data.size()).fill_(source_label).to(self.device))
@@ -248,12 +250,11 @@ class DAobjTwoStagePseudoLabGeneralizedRCNN(GeneralizedRCNN):
             return losses, [], [], None
 
         elif branch.startswith("supervised_target"):
-
+            #print("########## branch supervised_target")
             # features_t = grad_reverse(features_t[self.dis_type])
             # D_img_out_t = self.D_img(features_t)
             # loss_D_img_t = F.binary_cross_entropy_with_logits(D_img_out_t, torch.FloatTensor(D_img_out_t.data.size()).fill_(target_label).to(self.device))
 
-            
             # Region proposal network
             proposals_rpn, proposal_losses = self.proposal_generator(
                 images, features, gt_instances
@@ -283,6 +284,7 @@ class DAobjTwoStagePseudoLabGeneralizedRCNN(GeneralizedRCNN):
             return losses, [], [], None
 
         elif branch == "unsup_data_weak":
+            #print("########## branch unsup_data_weak")
             """
             unsupervised weak branch: input image without any ground-truth label; output proposals of rpn and roi-head
             """

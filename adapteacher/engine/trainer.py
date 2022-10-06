@@ -495,6 +495,10 @@ class ATeacherTrainer(DefaultTrainer):
     # =====================================================
 
     def run_step_full_semisup(self):
+        if 0 == (self.iter % 200):
+            print("training iteration", self.iter)
+        if self.iter == self.cfg.SEMISUPNET.BURN_UP_STEP:
+            print("supervised burn up finished")
         self._trainer.iter = self.iter
         assert self.model.training, "[UBTeacherTrainer] model was changed to eval mode!"
         start = time.perf_counter()
@@ -596,15 +600,11 @@ class ATeacherTrainer(DefaultTrainer):
             all_unlabel_data = unlabel_data_q
 
             # 4. input both strongly and weakly augmented labeled data into student model
-            record_all_label_data, _, _, _ = self.model(
-                all_label_data, branch="supervised"
-            )
+            record_all_label_data, _, _, _ = self.model(all_label_data, branch="supervised")
             record_dict.update(record_all_label_data)
 
             # 5. input strongly augmented unlabeled data into model
-            record_all_unlabel_data, _, _, _ = self.model(
-                all_unlabel_data, branch="supervised_target"
-            )
+            record_all_unlabel_data, _, _, _ = self.model(all_unlabel_data, branch="supervised_target")
             new_record_all_unlabel_data = {}
             for key in record_all_unlabel_data.keys():
                 new_record_all_unlabel_data[key + "_pseudo"] = record_all_unlabel_data[

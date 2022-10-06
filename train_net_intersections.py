@@ -134,6 +134,7 @@ def main(args):
     cfg.SOLVER.MAX_ITER = iters
     cfg.TEST.EVAL_PERIOD = eval_interval
     cfg.freeze()
+    print('load weights from:', cfg.MODEL.WEIGHTS)
 
     Trainer = ATeacherTrainer
     trainer = Trainer(cfg)
