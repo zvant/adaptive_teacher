@@ -496,9 +496,9 @@ class ATeacherTrainer(DefaultTrainer):
 
     def run_step_full_semisup(self):
         if 0 == (self.iter % 200):
-            print("training iteration", self.iter)
+            print("training iteration", self.iter, flush=True)
         if self.iter == self.cfg.SEMISUPNET.BURN_UP_STEP:
-            print("supervised burn up finished")
+            print("supervised burn up finished", flush=True)
         self._trainer.iter = self.iter
         assert self.model.training, "[UBTeacherTrainer] model was changed to eval mode!"
         start = time.perf_counter()

@@ -89,7 +89,7 @@ def run_adapt_ddp_2gpus(args):
     assert os.access(os.path.join(basedir, 'train_net_intersections.py'), os.R_OK)
     assert len(args.gpus) > 0
     vids = list(filter(lambda x: not os.access(os.path.join(basedir, 'adapt_intersections_%s_lr0.00010_iter20000.pth' % x), os.R_OK), args.ids))
-    random.shuffle(vids)
+    vids = sorted(vids)
     print(vids)
 
     python_path = str(subprocess.run(['which', 'python'], capture_output=True, text=True, env=os.environ).stdout).strip()
