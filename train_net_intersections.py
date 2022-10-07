@@ -163,11 +163,12 @@ if __name__ == "__main__":
     parser.add_argument('--opt', type=str, help='option')
     parser.add_argument('--id', type=str, help='video ID')
     parser.add_argument('--ddp_num_gpus', type=int)
+    parser.add_argument('--ddp_port', type=int, default=50152)
     args = parser.parse_args()
 
     if args.opt == 'adapt':
         if args.ddp_num_gpus > 1:
-            launch(main, args.ddp_num_gpus, num_machines=1, machine_rank=0, dist_url='tcp://127.0.0.1:50152', args=(args,))
+            launch(main, args.ddp_num_gpus, num_machines=1, machine_rank=0, dist_url='tcp://127.0.0.1:%d' % args.ddp_port, args=(args,))
         else:
             main(args)
     elif args.opt == 'convert':

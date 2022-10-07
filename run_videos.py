@@ -102,7 +102,7 @@ def run_adapt_ddp_2gpus(args):
     for v in vids:
         commands.append(
             (
-                [python_path, os.path.join(basedir, 'train_net_intersections.py'),  '--id', v, '--opt', 'adapt', '--ddp_num_gpus', '2'],
+                [python_path, os.path.join(basedir, 'train_net_intersections.py'),  '--id', v, '--opt', 'adapt', '--ddp_num_gpus', '2', '--ddp_port', args.ddp_port],
                 curr_env,
                 os.path.join(basedir, 'log_adapt_%s_%s_GPU%s.log' % (v, socket.gethostname(), curr_env['CUDA_VISIBLE_DEVICES']))
             )
@@ -122,7 +122,8 @@ if __name__ == '__main__':
     parser.add_argument('--opt', type=str)
     parser.add_argument('--ids', nargs='+', default=[])
     parser.add_argument('--gpus', nargs='+', default=[])
-    parser.add_argument('--hold', default='0.005', type=str)
+    parser.add_argument('--hold', type=str, default='0.005')
+    parser.add_argument('--ddp_port', type=int, default='50152')
     args = parser.parse_args()
     print(args)
 
