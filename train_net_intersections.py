@@ -162,7 +162,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Adaptation Script')
     parser.add_argument('--opt', type=str, help='option')
     parser.add_argument('--id', type=str, help='video ID')
-    parser.add_argument('--ddp_num_gpus', type=int)
+    parser.add_argument('--ddp_num_gpus', type=int, default=1)
     parser.add_argument('--ddp_port', type=int, default=50152)
     args = parser.parse_args()
 
