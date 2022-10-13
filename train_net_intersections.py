@@ -159,7 +159,7 @@ def main(args):
     cfg.DATASETS.TRAIN_LABEL = ('mscoco2017_train_remap',)
     cfg.DATASETS.TRAIN_UNLABEL = (dst_unlabel,)
     # cfg.DATASETS.TEST = (dst_manual,) # debug
-    # cfg.DATASETS.TEST = ('mscoco2017_valid_remap', dst_manual)
+    cfg.DATASETS.TEST = ('mscoco2017_valid_remap', dst_manual)
 
     cfg.DATALOADER.NUM_WORKERS = args.num_workers
     cfg.SOLVER.BASE_LR = 1e-4
